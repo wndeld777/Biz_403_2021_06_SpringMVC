@@ -5,20 +5,11 @@
 
 
 <style>
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+h1.page_title{
+	width:90%;
+	margin:10px auto;
+	
 }
-
-header {
-	background-color: green;
-	color: white;
-	text-shadow: 1px 1px 1px black;
-	text-align: center;
-	padding: 2rem;
-}
-
 nav#main_nav {
 	background-color: blue;
 	color: white;
@@ -67,6 +58,8 @@ rootPath 변수 사용관계로 별도의 main_home.css에 둘수 없어서
 */
 section#ad_sec article:nth-of-type(1) {
 	background: url("${rootPath}/static/images/ad_01.jpg") no-repeat;
+	/* 첫번째방법 : 가상클래스에 background 이미지를 설정한 후 size 를 적용하는 방법 */
+	background-size:100% 100%;
 }
 
 section#ad_sec article:nth-of-type(2) {
@@ -84,6 +77,13 @@ section#ad_sec article:nth-of-type(4) {
 section#ad_sec article:nth-of-type(5) {
 	background: url("${rootPath}/static/images/ad_05.jpg") no-repeat;
 }
+/* 가상클래스를 사용할때 위치값 [nth-of-type(위치)] 지정하여 style을 지정하는데
+전역시스템 변수인 n 이 존재를 한다
+n은 style의 가상클래스에서 사용하는 변수로 모든 것 이라는 의미이다 */
+section#ad_sec article:nth-of-type(n){
+	background-size: 100% 100%;
+}
+
 </style>
 <script>
 	// jsp의 el tag의 변수를 js 변수로 다시 선언하기
@@ -102,7 +102,14 @@ section#ad_sec article:nth-of-type(5) {
 		<li>도서정보</li>
 		<li>출판사정보</li>
 		<li>저자정보</li>
-		<li>로그인</li>
-		<li>회원가입</li>
+		<c:if test="${empty USERVO }">
+			<li>로그인</li>
+			<li>회원가입</li>
+		</c:if>
+		
+		<c:if test="${not empty USERVO }">
+			<li>로그아웃</li>
+			<li>${USERVO.name } 님 반갑습니다</li>
+		</c:if>
 	</ul>
 </nav>

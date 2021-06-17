@@ -8,6 +8,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/include/include_header.jspf"%>
 	<h1>출판사 정보 등록</h1>
+	<section class="main_sec">
 	<form method="POST">
 		<fieldset>
 			<legend>출판사 정보</legend>
@@ -25,6 +26,7 @@
 			</div>
 		</fieldset>
 	</form>
+	</section>
 	<script>
 	// const : 상수를 선언하는 키워드
 	//		코드가 진행되는 동안 값이 변경되면 안되는 것
