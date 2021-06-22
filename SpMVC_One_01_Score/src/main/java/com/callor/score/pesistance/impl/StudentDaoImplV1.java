@@ -45,7 +45,7 @@ public class StudentDaoImplV1 implements StudentDao{
 		
 		List<StudentVO> students = jdbcTemplate.query(sql, new BeanPropertyRowMapper<StudentVO>(StudentVO.class));
 		log.debug("SELECT {}",students.toString());
-		return null;
+		return students;
 	}
 
 	@Override
