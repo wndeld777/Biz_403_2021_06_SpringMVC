@@ -11,13 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class StudentController {
 
-	@RequestMapping(value= {"/",""},method=RequestMethod.GET)
+	@RequestMapping(value= {"/list"},method=RequestMethod.GET)
 	public String students() {
 		log.debug("Students Root");
 		return "students/list";
 	}
 	
-	@RequestMapping(value= {"/",""},method=RequestMethod.GET)
+	@RequestMapping(value= {"/insert"},method=RequestMethod.GET)
 	public String insert() {
 		return "students/input";
 	}
