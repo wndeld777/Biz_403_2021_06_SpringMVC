@@ -3,11 +3,11 @@ package com.callor.score.service;
 import java.util.List;
 import java.util.Map;
 
-import com.callor.score.model.StudentVO;
+import com.callor.score.model.ScoreDTO;
 
-public interface StudentService {
+public interface ScoreService {
 
-	public List<StudentVO> selectAll();
 	
+	public List<ScoreDTO> scoreAllList();
 	public Map<String,Object> selectMaps();
 }
