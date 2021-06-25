@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.callor.score.dao.ext.ScoreDao;
 import com.callor.score.model.ScoreDTO;
 import com.callor.score.model.ScoreVO;
+import com.callor.score.model.SubjectAndScoreDTO;
 import com.callor.score.service.ScoreService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,12 @@ public class ScoreServiceImplV1 implements ScoreService{
 		Map<String,Object> maps = new HashMap<String,Object>();
 		maps.put("점수", scViewList);
 		return maps;
+	}
+
+	@Override
+	public List<SubjectAndScoreDTO> selectScore(String st_num) {
+		List<SubjectAndScoreDTO> ssList = scDao.selectSubjectAndScore(st_num);
+		return ssList;
 	}
 
 }

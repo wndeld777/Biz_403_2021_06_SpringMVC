@@ -4,69 +4,7 @@
 <c:set var="rootPath" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
-<style>
-* {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-}
-
-h1 {
-	background-color: green;
-	color: white;
-	text-shadow: 1px 1px 1px black;
-	text-align: center;
-	padding: 2rem;
-}
-
-nav {
-	background-color: blue;
-	color:white;
-}
-nav ul{
-	display:flex;
-	list-style: none;
-}
-nav li{
-	padding:5px 12px;
-	transition:1s;
-}
-nav li:first-child{
-	margin-left:15px;
-}
-nav li:last-child{
-	margin-left:auto;
-	margin-right:30px;
-}
-nav li:hover{
-	background-color:#999;
-	cursor:pointer;
-}
-table{
-	border-collapse: collapse;
-	border-spacing : 0;
-	width:90%;
-	margin:0 auto;
-}
-table th, td{
-	border-top : 1px solid #aaa;
-	border-bottom: 1px solid #aaa;
-	padding : 5px 8px;
-}
-table tr:first-child{
-	background-color:gray;
-	
-}
-table td{
-	padding-left : 20px;
-}
-
-
-table tr:hover{
-	background-color:#aaa;
-	cursor:pointer;
-}
-</style>
+<link href="${rootPath }/static/css/main_layout.css?ver=2021-06-23-001" rel="stylesheet" />
 <script src="${rootPath }/static/js/main_nav.js?ver=2021-06-18-001"></script>
 <head>
 <meta charset="UTF-8">
