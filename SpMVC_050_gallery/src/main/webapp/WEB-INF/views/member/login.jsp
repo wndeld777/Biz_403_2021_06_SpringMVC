@@ -11,17 +11,50 @@ div.msg.view {
 	padding: 1rem;
 	border-radius:20px;
 	}
+form#login_form{
+	width:80vw;
+	margin:50px auto;
+	}
+div.msg{
+	width:80%;
+	margin:0 auto;
+	}
+label{
+	display:inline-block;
+	width:43%;
+	text-align: right;
+	font-size:30px;
+}
+input{
+	padding:1rem;
+	border-radius:10px;
+}
+input:hover{
+	width:20%;
+	background-color:#ddd;
+	transition:1s;
+}
+h2{
+	margin:5px auto;
+	text-align:center;
+}
+div#btn_login{
+	display:flex;
+	margin:5px auto;
+	margin-left:42%;
+}
 </style>
 
 <form method="POST" id="login_form">
 	<div class="msg login error"></div>
+	<h2>로그인</h2>
 	<div>
 		<label>사용자 ID</label> <input name="m_userid" type="email">
 	</div>
 	<div>
 		<label>비밀번호</label> <input name="m_password" type="password">
 	</div>
-	<div>
+	<div id="btn_login">
 		<button type="button" class="login">로그인</button>
 		<button type="button" class="join">회원가입</button>
 	</div>
@@ -74,6 +107,10 @@ if(login_fail === "NOT_USERID"){
 	//msg_error.style.fontSize = "20px"
 	//msg_error.style.backgroundColor= "red"
 	//msg_error.style.padding = "2rem"
+}else if(login_fail === "LOGIN_REQ"){
+	msg_error.innerHTML = "로그인이 필요한 서비스 입니다<br/>"
+	msg_error.innerHTML += "로그인을 해주세요^^"
+		msg_error.classList.add("view")
 }
 
 </script>

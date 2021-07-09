@@ -7,7 +7,7 @@ section {
 	margin: 20px;
 	border-top: 1px solid blue;
 	border-bottom: 1px solid blue;
-	width: 80%;
+	width: 80vw;
 	border-radius: 20px;
 }
 
@@ -23,6 +23,7 @@ table{
 	margin:30px;
 }
 div.ga_box {
+	width:80%;
 	margin: 30px;
 	display: flex;
 }
@@ -34,7 +35,10 @@ div.ga_box div:first-of-type {
 div.ga_box div:last-of-type {
 	flex: 3;
 }
-
+div.image_box{
+width:40%;
+margin:0 auto;
+}
 th {
 	font-weight: bold;
 	font-size: 20pt;
@@ -42,6 +46,10 @@ th {
 
 th:last-of-type {
 	width: 80%;
+}
+div.subject_box{
+	width:60%;	
+	margin-left:50px;
 }
 </style>
 <table>
@@ -54,12 +62,17 @@ th:last-of-type {
 
 	<section>
 		<div class="ga_box">
-			<div>
+			<div class="image_box">
+			<c:if test="${empty GALLERY.g_image}">
+				<img src="${rootPath}/files/noImage.png" width="10%">
+			</c:if>
+			<c:if test="${not empty GALLERY.g_image}">
 				<img src="${rootPath }/files/${GALLERY.g_image}" width="200px">
+			</c:if>
 			</div>
-			<div>
+			<div class="subject_box">
 				<h3>
-					<a href="${rootPath }/gallery/detail/${GALLERY.g_seq}">
+					<a href="${rootPath }/gallery/detail2/${GALLERY.g_seq}">
 						${GALLERY.g_subject } </a>
 				</h3>
 				<p>${GALLERY.g_content }</p>
