@@ -64,7 +64,7 @@ div.subject_box{
 		<div class="ga_box">
 			<div class="image_box">
 			<c:if test="${empty GALLERY.g_image}">
-				<img src="${rootPath}/files/noImage.png" width="10%">
+				<img src="${rootPath}/files/noImage.png" width="100px">
 			</c:if>
 			<c:if test="${not empty GALLERY.g_image}">
 				<img src="${rootPath }/files/${GALLERY.g_image}" width="200px">

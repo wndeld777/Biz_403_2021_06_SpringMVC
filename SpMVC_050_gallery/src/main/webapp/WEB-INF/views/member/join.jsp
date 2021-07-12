@@ -1,36 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath }" />
 <style>
-	div.msg{
-		font-size:10px;
-		color:red;
-	}
+div.msg {
+	font-size: 10px;
+	color: red;
+}
 </style>
 <form method="POST">
 	<div>
-		<label>사용자 ID(Email)</label>
-		<input name="m_userid" type="email">
-		<div class="msg join id">
-		
-		</div>
+		<label>사용자 ID(Email)</label> <input name="m_userid" type="email">
+		<div class="msg join id"></div>
 	</div>
 	<div>
-		<label>비밀번호</label>
-		<input name="m_password" type="password">
+		<label>비밀번호</label> <input name="m_password" type="password">
 	</div>
 	<div>
-		<label>비밀번호 확인</label>
-		<input name="re_password" type="password">
+		<label>비밀번호 확인</label> <input name="re_password" type="password">
 	</div>
 	<div>
-		<label>닉네임</label>
-		<input name="m_nick">
+		<label>닉네임</label> <input name="m_nick">
 	</div>
 	<div>
-		<label>전화번호</label>
-		<input name="m_tel" type="tel">
+		<label>전화번호</label> <input name="m_tel" type="tel">
 	</div>
 	<button>가입신청</button>
 </form>
