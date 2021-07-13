@@ -101,7 +101,7 @@ if(login_fail === "NOT_USERID"){
 	//msg_error.style.fontSize = "20px"
 	//msg_error.style.backgroundColor= "red"
 	//msg_error.style.padding = "2rem"
-}else if(login_fail === "NEQ_PASS"){
+}else if(login_fail === "NOT_PASS"){
 	msg_error.innerText = "비밀번호가 틀렸습니다!!!"
 	msg_error.classList.add("view")
 	//msg_error.style.fontSize = "20px"
