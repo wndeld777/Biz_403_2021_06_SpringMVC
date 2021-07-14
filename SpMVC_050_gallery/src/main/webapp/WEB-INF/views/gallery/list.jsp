@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath }" />
 <style>
-section {
+section.list_box {
 	margin: 20px;
 	border-top: 1px solid blue;
 	border-bottom: 1px solid blue;
@@ -11,7 +11,7 @@ section {
 	border-radius: 20px;
 }
 
-section:hover {
+section.list_box:hover {
 	background: #ddd;
 	transition:0.5s;
 }
@@ -60,7 +60,7 @@ div.subject_box{
 </table>
 <c:forEach items="${GALLERYS }" var="GALLERY">
 
-	<section>
+	<section class="list_box">
 		<div class="ga_box">
 			<div class="image_box">
 			<c:if test="${empty GALLERY.g_image}">
@@ -73,11 +73,13 @@ div.subject_box{
 			<div class="subject_box">
 				<h3>
 					<a href="${rootPath }/gallery/detail2/${GALLERY.g_seq}">
-						${GALLERY.g_subject } </a>
+						${GALLERY.g_subject }(${GALLERY.g_seq})
+					</a>
 				</h3>
 				<p>${GALLERY.g_content }</p>
 			</div>
 		</div>
 	</section>
 </c:forEach>
+<%@ include file="/WEB-INF/views/include/include_page_nav.jspf" %>
 
