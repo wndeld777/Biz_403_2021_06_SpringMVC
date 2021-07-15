@@ -52,6 +52,7 @@ div.subject_box{
 	margin-left:50px;
 }
 </style>
+<%@ include file="/WEB-INF/views/include/include_gallery_search.jspf" %>
 <table>
 	<tr>
 		<th>대표 이미지</th>

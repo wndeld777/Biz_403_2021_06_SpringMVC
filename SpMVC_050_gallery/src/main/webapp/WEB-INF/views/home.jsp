@@ -71,8 +71,8 @@ h1 {
 
 
 	<c:forEach items="${FILES}" var="FILE">
-		<a href="${rootPath }/files/${FILE }" target="_NEW"> <img
-			src="${rootPath}/files/${FILE}" width="100px" height="100px" />
+		<a href="${rootPath }/files/${FILE }" target="_NEW"> 
+		<img src="${rootPath}/files/${FILE}" width="100px" height="100px" />
 		</a>
 	</c:forEach>
 
