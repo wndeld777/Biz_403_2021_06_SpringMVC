@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.honjal.honjal.model.CommentVO;
 import com.honjal.honjal.model.ContentListDTO;
@@ -163,7 +164,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public String read(Integer content_num, Model model) {
+	public String read(Integer content_num,CommentVO commentVO, Model model) {
 		ContentVO contentVO = contentService.findByIdContent(content_num);
 		model.addAttribute("CONTENT",contentVO);
 		model.addAttribute("BODY", "READ");
@@ -171,17 +172,26 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/read/comment",method=RequestMethod.POST)
-	public String comment(MemberVO memberVO,CommentVO commentVO,Model model,HttpSession session) {
+	public String comment(ContentVO content_num,MemberVO memberVO,CommentVO commentVO,Model model,HttpSession session) {
 		commentService.insert(commentVO);
-		List<CommentVO> commentList = commentService.selectAll(commentVO);
 		if(memberVO != null) {
 			session.setAttribute("MEMBER", memberVO);	
 		}
-		log.debug("댓글리스트",commentVO);
-		model.addAttribute("COMMENT",commentList);
-		model.addAttribute("BODY","READ");
 		
+		
+		model.addAttribute("COMMENT",commentVO);
+		log.debug("댓글내용",commentVO.toString());
+		return "redirect:/board/read?content_num=" + content_num;
+	}
+	@ResponseBody
+	@RequestMapping(value="/read/comment",method=RequestMethod.GET)
+	public String comment(CommentVO commentVO,Model model) {
+		List<CommentVO> commentList = commentService.selectAll(commentVO);
+
+		model.addAttribute("COMMENT",commentList);
 		return "home";
+		
+		
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.GET)

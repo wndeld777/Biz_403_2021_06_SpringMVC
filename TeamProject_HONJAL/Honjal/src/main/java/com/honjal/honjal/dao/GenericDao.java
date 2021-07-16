@@ -9,7 +9,7 @@ public interface GenericDao<VO, PK> {
 	
 	public void insert(VO vo);
 	public void update(VO vo);
-	public void delete(PK pk);
+	public void delete(Integer comment_num);
 	
 	public int create_table(Map<String,String> resultMaps);
 }

@@ -52,7 +52,7 @@
           		</table>
           		</section>
   	</c:forEach>
-	<form id="comment_form" method="POST" action="${rootPath }/board/read/comment">
+	<form id="comment_form" method="POST" action="${rootPath}/board/read/comment">
 		<section class="comment_box">
 			<p>댓글 2</p>
 			<hr />
@@ -113,8 +113,17 @@ delete_button.addEventListener("click",(e)=>{
 	
 })
 document.querySelector(".insert").addEventListener("click",(e)=>{
-	location.href = rootPath + "read"
-	form.submit()
+	location.href = rootPath + "/read/comment?content_num=${CONTENT.content_num}"
+	alert("댓글이 등록되었습니다")
+	
+	fetch("${rootPath}/board/read/comment?content_num=" + content_num)
+	.then(response=>response.text())
+	.then(result=>{
+		if(result === "COMMENT_OK"){
+			
+			document.querySelector("form").submit()	
+		}
+	})
 })
 
 

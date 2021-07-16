@@ -23,14 +23,16 @@ public class CommentServiceImplV1 implements CommentService{
 	}
 
 	@Override
-	public void update(CommentVO contentVO) {
+	public void update(CommentVO commentVO) {
 		// TODO Auto-generated method stub
+		commentDao.update(commentVO);
 		
 	}
 
 	@Override
-	public void delete(Integer content_num) {
+	public void delete(Integer comment_num) {
 		// TODO Auto-generated method stub
+		commentDao.delete(comment_num);
 		
 	}
 
