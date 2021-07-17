@@ -22,8 +22,6 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.callor.score.controller" />
-	<context:component-scan base-package="com.callor.score.pesistance" />
-	<context:component-scan base-package="com.callor.score.service" />
 	
 	
 	

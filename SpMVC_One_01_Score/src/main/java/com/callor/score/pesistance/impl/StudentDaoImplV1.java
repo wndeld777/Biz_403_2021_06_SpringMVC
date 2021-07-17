@@ -41,11 +41,7 @@ public class StudentDaoImplV1 implements StudentDao{
 	@Override
 	public List<StudentVO> selectAll() {
 		// TODO Auto-generated method stub
-		String sql = " SELECT * FROM tbl_student ";
-		
-		List<StudentVO> students = jdbcTemplate.query(sql, new BeanPropertyRowMapper<StudentVO>(StudentVO.class));
-		log.debug("SELECT {}",students.toString());
-		return students;
+		return null;
 	}
 
 	@Override
