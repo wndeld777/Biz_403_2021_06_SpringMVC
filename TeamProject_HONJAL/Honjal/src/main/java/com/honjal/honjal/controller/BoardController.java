@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.honjal.honjal.model.CommentVO;
@@ -170,6 +171,10 @@ public class BoardController {
 		model.addAttribute("BODY", "READ");
 		return "home";
 	}
+	@RequestMapping(value="read/{url}")
+	public String comment(@PathVariable("url") String url) {
+		return "redirect:/board/read?url=content";
+	}
 	
 	@RequestMapping(value="/read/comment",method=RequestMethod.POST)
 	public String comment(ContentVO content_num,MemberVO memberVO,CommentVO commentVO,Model model,HttpSession session) {
@@ -180,16 +185,19 @@ public class BoardController {
 		
 		
 		model.addAttribute("COMMENT",commentVO);
-		log.debug("댓글내용",commentVO.toString());
-		return "redirect:/board/read?content_num=" + content_num;
+		log.debug("댓글내용{}",commentVO.toString());
+		return "redirect:/";
 	}
-	@ResponseBody
 	@RequestMapping(value="/read/comment",method=RequestMethod.GET)
-	public String comment(CommentVO commentVO,Model model) {
+	public String comment(@RequestParam(name="url",required = false,defaultValue = "NONE")String url, CommentVO commentVO,Model model) {
+		
+		if(url=="NONE") {
+			model.addAttribute("COMMENT_FAIL","COMMENT_REQ");
+		}
 		List<CommentVO> commentList = commentService.selectAll(commentVO);
-
+		log.debug("무야호{}",commentList);
 		model.addAttribute("COMMENT",commentList);
-		return "home";
+		return "redirect:/";
 		
 		
 	}

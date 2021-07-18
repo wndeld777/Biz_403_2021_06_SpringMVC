@@ -37,7 +37,7 @@
 		<table id="tb_comment_list">
           <tr>
           	<td width="5%" class="cm_img"><img src="${rootPath}/static/images/user.png" /></td>
-            <td width="10%" class="cm_name">${MEMBER.member_nname}</td>
+           <td width="10%" class="cm_name">${MEMBER.member_nname}</td>
             <td width="70%" class="cm_cm">${COMMENT.comment_text}
             	<span>${CONTENT.content_date}</span>
             </td>
