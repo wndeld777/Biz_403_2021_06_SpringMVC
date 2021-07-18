@@ -173,31 +173,33 @@ public class BoardController {
 	}
 	@RequestMapping(value="read/{url}")
 	public String comment(@PathVariable("url") String url) {
-		return "redirect:/board/read?url=content";
+		return "redirect:/board/read?url=content_num";
 	}
 	
 	@RequestMapping(value="/read/comment",method=RequestMethod.POST)
-	public String comment(ContentVO content_num,MemberVO memberVO,CommentVO commentVO,Model model,HttpSession session) {
+	public String comment(ContentVO content_num,MemberVO memberVO,CommentVO commentVO,Model model,HttpSession session) throws Exception {
 		commentService.insert(commentVO);
+		
+		commentVO = CommentVO.builder().content_num(3).build();	
+			
+		
+		
 		if(memberVO != null) {
 			session.setAttribute("MEMBER", memberVO);	
 		}
-		
-		
 		model.addAttribute("COMMENT",commentVO);
 		log.debug("댓글내용{}",commentVO.toString());
-		return "redirect:/";
+		return "redirect:/board/read?content_num=" + commentVO.getContent_num();
 	}
 	@RequestMapping(value="/read/comment",method=RequestMethod.GET)
-	public String comment(@RequestParam(name="url",required = false,defaultValue = "NONE")String url, CommentVO commentVO,Model model) {
+	public String comment(CommentVO commentVO,Model model) throws Exception {
 		
-		if(url=="NONE") {
-			model.addAttribute("COMMENT_FAIL","COMMENT_REQ");
-		}
-		List<CommentVO> commentList = commentService.selectAll(commentVO);
-		log.debug("무야호{}",commentList);
-		model.addAttribute("COMMENT",commentList);
-		return "redirect:/";
+		commentVO = (CommentVO) commentService.selectAll(commentVO);
+		log.debug("댓글리스트{}",commentVO);
+		model.addAttribute("COMMENT",commentVO);
+		model.addAttribute("BODY","READ");
+		
+		return "home";
 		
 		
 	}

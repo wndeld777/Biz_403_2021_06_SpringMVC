@@ -113,10 +113,11 @@ delete_button.addEventListener("click",(e)=>{
 	
 })
 document.querySelector(".insert").addEventListener("click",(e)=>{
-	location.href = rootPath + "/read/comment?content_num=${CONTENT.content_num}"
+	let content_num = e.currentTarget.value
+	location.href = rootPath + "/board/read?content_num=${CONTENT.content_num}"
 	alert("댓글이 등록되었습니다")
 	
-	fetch("${rootPath}/board/read/comment?content_num=" + content_num)
+	fetch("${rootPath}/board/read?content_num=" + content_num)
 	.then(response=>response.text())
 	.then(result=>{
 		if(result === "COMMENT_OK"){
