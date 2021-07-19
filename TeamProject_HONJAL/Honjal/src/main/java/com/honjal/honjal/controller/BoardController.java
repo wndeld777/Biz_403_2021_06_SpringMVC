@@ -1,7 +1,6 @@
 package com.honjal.honjal.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -165,47 +164,69 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public String read(Integer content_num,CommentVO commentVO, Model model) {
+	public String read(Integer content_num, Model model) throws Exception {
+		
 		ContentVO contentVO = contentService.findByIdContent(content_num);
 		model.addAttribute("CONTENT",contentVO);
-		model.addAttribute("BODY", "READ");
-		return "home";
-	}
-	@RequestMapping(value="read/{url}")
-	public String comment(@PathVariable("url") String url) {
-		return "redirect:/board/read?url=content_num";
-	}
-	
-	@RequestMapping(value="/read/comment",method=RequestMethod.POST)
-	public String comment(ContentVO content_num,MemberVO memberVO,CommentVO commentVO,Model model,HttpSession session) throws Exception {
-		commentService.insert(commentVO);
-		
-		commentVO = CommentVO.builder().content_num(3).build();	
-			
-		
-		
-		if(memberVO != null) {
-			session.setAttribute("MEMBER", memberVO);	
-		}
-		model.addAttribute("COMMENT",commentVO);
-		log.debug("댓글내용{}",commentVO.toString());
-		return "redirect:/board/read?content_num=" + commentVO.getContent_num();
-	}
-	@RequestMapping(value="/read/comment",method=RequestMethod.GET)
-	public String comment(CommentVO commentVO,Model model) throws Exception {
-		
-		commentVO = (CommentVO) commentService.selectAll(commentVO);
-		log.debug("댓글리스트{}",commentVO);
-		model.addAttribute("COMMENT",commentVO);
+		List<CommentVO> commentList = commentService.selectAll(); 
+		log.debug("댓글리스트{}",commentList);
+//		model.addAttribute("COMMENT",commentList);
 		model.addAttribute("BODY","READ");
 		
+		
+		
 		return "home";
-		
-		
 	}
 	
+	//@ResponseBody
+	@RequestMapping(value="/read",method=RequestMethod.POST)
+	public String comment(Integer content_num,CommentVO commentVO,HttpSession session) throws Exception {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat st = new SimpleDateFormat("HH:mm:ss");
+		String curTime = st.format(date);
+		commentVO.setComment_time(curTime);
+		
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute("MEMBER");
+	//	commentVO.setComment_num(comment_num);
+//		log.debug("댓글번호",comment_num);
+		commentVO.setComment_writer(memberVO.getMember_nname());
+//		String returnResult;
+//		if(memberVO == null) {
+//			returnResult = "MEMBER_NULL";
+//		}else {
+//			returnResult = "COMMENT_OK";
+//		}
+		
+		
+		log.debug("commentVO{}",commentVO.toString());
+		commentService.insert(commentVO);
+		
+		return "redirect:/board/read?content_num=" + content_num;
+	}
+	
+//	@RequestMapping(value="/comment/delete",method=RequestMethod.GET)
+//	public String delete1(Integer comment_num, Model model) throws Exception {
+//		commentService.delete(comment_num);
+//		
+//		return "redirect:/board/read";
+//	}
+	
+//	@RequestMapping(value="/comment/update",method=RequestMethod.GET)
+//	public String update(Integer content_num,Integer comment_num,Model model) throws Exception {
+//			String strSeq = req.getParameter("to_seq");
+//			Long to_seq = Long.valueOf(strSeq);
+//			todoVO.setTo_seq(to_seq);
+//			tlservice.update(todoVO);
+//			resp.sendRedirect("/todo/");
+//		CommentVO commentVO = commentService.findByIdComment_num(comment_num);
+//		log.debug("댓글번호{}",comment_num);
+//		model.addAttribute("COMMENT",commentVO);
+//		return "redirect:/board/read?content_num=" + content_num;
+//	}
+	
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public String update(Integer content_num, Model model) {
+	public String update(Integer content_num,Model model){
 		ContentVO contentVO = contentService.findByIdContent(content_num);
 		String bcode = contentVO.getBoard_code().substring(0, 3);
 		// board_code 앞 3글자 따오기 (TIP)
@@ -226,9 +247,11 @@ public class BoardController {
 		model.addAttribute("BODY", "UPDATE");
 		return "home";
 	}
+
+	
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(ContentVO contentVO, Model model) throws Exception {
+	public String update(ContentVO contentVO,Model model) throws Exception {
 		contentService.update(contentVO);
 		model.addAttribute("content_num", contentVO.getContent_num());
 		return "redirect:/board/read";

@@ -32,19 +32,25 @@
 			<button>스크랩</button>
 		</div>
 	</section>
-	<c:forEach items="${COMMENT}" var="COMMENT">
+	
+	
+		<section class="comment_box">
+			<p>댓글 2</p>
+			<hr />
+			<c:forEach items="${COMMENT}" var="COMMENT">
 	<section class="comment_box">
 		<table id="tb_comment_list">
           <tr>
+          	<td>${COMMENT.comment_num}</td>
           	<td width="5%" class="cm_img"><img src="${rootPath}/static/images/user.png" /></td>
-           <td width="10%" class="cm_name">${MEMBER.member_nname}</td>
+           <td width="10%" class="cm_name">${COMMENT.comment_writer}</td>
             <td width="70%" class="cm_cm">${COMMENT.comment_text}
-            	<span>${CONTENT.content_date}</span>
+            	<span>${COMMENT.comment_time}</span>
             </td>
             <td width="7%" class="cm_btn">
               	<button class="update">수정</button>
 		    </td>
-            <td width="7%" class="cm_btn">
+            <td width="7%" class="cm_btn1">
               	<button class="delete">삭제</button>
             </td>
           </tr>
@@ -52,11 +58,7 @@
           		</table>
           		</section>
   	</c:forEach>
-	<form id="comment_form" method="POST" action="${rootPath}/board/read/comment">
-		<section class="comment_box">
-			<p>댓글 2</p>
-			<hr />
-				
+			<form id="comment_form" method="POST">
 			<table id="tb_comment">
 				<tr>
 					<td width="5%" class="cm_img"><img
@@ -74,19 +76,31 @@
 
 
 			</table>
+			</form>
 		</section>
-	</form>
+	
 </div>
 
 <script>
 
 let update_button = document.querySelector(".btn_update")
 let delete_button = document.querySelector(".btn_delete")
+let member_null = document.querySelector(".cm_name")
+let update = document.querySelector(".cm_btn")
+let comment_delete = document.querySelector(".cm_btn1")
 let rootPath = "${rootPath}/board"
 
 update_button.addEventListener("click",(e)=>{
 	location.href = rootPath + "/update?content_num=${CONTENT.content_num}"
 })
+/*
+update.addEventListener("click",(e)=>{
+	
+	location.href = rootPath + "/comment/update"
+	document.querySelector("textarea[name='comment_text']").focus()
+})
+*/
+
 
 delete_button.addEventListener("click",(e)=>{
 	let menu = "${CONTENT.board_code}".substr(0,3).toLowerCase()
@@ -112,19 +126,51 @@ delete_button.addEventListener("click",(e)=>{
 	}
 	
 })
+/*
+comment_delete.addEventListener("click",(e)=>{
+	alert("댓글을 삭제합니다")
+	location.replace(rootPath+"/comment/delete?comment_num=${COMMENT.comment_num}")
+})
+*/
 document.querySelector(".insert").addEventListener("click",(e)=>{
-	let content_num = e.currentTarget.value
-	location.href = rootPath + "/board/read?content_num=${CONTENT.content_num}"
-	alert("댓글이 등록되었습니다")
+	if(member_null === ""){
+		alert("로그인 해주세요")
+		location.href = "${rootPath}"
+	}
+	let comment_text = document.querySelector("textarea[name='comment_text']").value
+	let json = { comment_text }
 	
-	fetch("${rootPath}/board/read?content_num=" + content_num)
+	let jsonString = JSON.stringify(json)
+	/*
+	if(jsonString == ""){
+		alert("댓글은 반드시 입력하세요")
+		return false;
+	}
+	*/
+	alert(josnString)
+	
+	fetch("${rootPath}/board/read",{
+		method:"POST",
+		body : jsonString,
+		headers : {
+			"content-Type" : "application/json"	
+			
+		}
+		
 	.then(response=>response.text())
 	.then(result=>{
-		if(result === "COMMENT_OK"){
-			
-			document.querySelector("form").submit()	
-		}
+		if(result === "MEMBER_NULL") {
+			alert("로그인하세요")
+			return false
+		} else if(result === "COMMENT_OK"){
+			alert("댓글이 등록되었습니다")
+			location.href = rootPath + "/read?content_num=${CONTENT.content_num}"
+		} 
 	})
+	})
+	
+	
+	
 })
 
 

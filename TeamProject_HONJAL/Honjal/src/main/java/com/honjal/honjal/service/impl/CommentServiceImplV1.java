@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.honjal.honjal.dao.ext.CommentDao;
 import com.honjal.honjal.model.CommentVO;
-import com.honjal.honjal.model.ContentVO;
 import com.honjal.honjal.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -38,7 +37,7 @@ public class CommentServiceImplV1 implements CommentService{
 	}
 
 	@Override
-	public List<CommentVO> selectAll(CommentVO commentVO) throws Exception {
+	public List<CommentVO> selectAll() {
 		// TODO Auto-generated method stub
 		List<CommentVO> commentList = commentDao.selectAll();
 		return commentList;
