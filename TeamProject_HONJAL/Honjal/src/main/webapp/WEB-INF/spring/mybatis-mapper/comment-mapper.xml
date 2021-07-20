@@ -14,8 +14,8 @@
 </select>
  
 <insert id="insert" parameterType="CommentVO">
-	INSERT INTO tbl_comment(comment_num,comment_text,comment_time,comment_writer)
-	VALUES(#{comment_num},#{comment_text},#{comment_time},#{comment_writer})
+	INSERT INTO tbl_comment(comment_text,comment_time,comment_writer)
+	VALUES(#{comment_text},#{comment_time},#{comment_writer})
 </insert>
 <update id="update" parameterType="CommentVO">
 	UPDATE tbl_comment SET

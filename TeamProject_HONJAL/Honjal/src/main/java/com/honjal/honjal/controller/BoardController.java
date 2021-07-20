@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -164,13 +165,15 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public String read(Integer content_num, Model model) throws Exception {
+	public String read(CommentVO commentVO,Integer content_num, Model model) throws Exception {
 		
 		ContentVO contentVO = contentService.findByIdContent(content_num);
 		model.addAttribute("CONTENT",contentVO);
-		List<CommentVO> commentList = commentService.selectAll(); 
-		log.debug("댓글리스트{}",commentList);
-//		model.addAttribute("COMMENT",commentList);
+		model.addAttribute("BODY","READ");
+		List<CommentVO> commentList = commentService.selectAll();
+		commentVO.setComment_num(commentVO.getComment_num());
+		log.debug("댓글리스트{}",commentList.toArray());
+		model.addAttribute("COMMENT",commentList);
 		model.addAttribute("BODY","READ");
 		
 		
@@ -178,30 +181,20 @@ public class BoardController {
 		return "home";
 	}
 	
-	//@ResponseBody
+	@ResponseBody
 	@RequestMapping(value="/read",method=RequestMethod.POST)
-	public String comment(Integer content_num,CommentVO commentVO,HttpSession session) throws Exception {
+	public String comment(Integer comment_num, Integer content_num,CommentVO commentVO,HttpSession session) throws Exception {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat st = new SimpleDateFormat("HH:mm:ss");
 		String curTime = st.format(date);
 		commentVO.setComment_time(curTime);
 		
-		
 		MemberVO memberVO = (MemberVO) session.getAttribute("MEMBER");
-	//	commentVO.setComment_num(comment_num);
-//		log.debug("댓글번호",comment_num);
 		commentVO.setComment_writer(memberVO.getMember_nname());
-//		String returnResult;
-//		if(memberVO == null) {
-//			returnResult = "MEMBER_NULL";
-//		}else {
-//			returnResult = "COMMENT_OK";
-//		}
 		
-		
-		log.debug("commentVO{}",commentVO.toString());
+		log.debug("커멘트 {}", commentVO.toString());
 		commentService.insert(commentVO);
-		
+		log.debug("commentVO{}",commentVO.toString());
 		return "redirect:/board/read?content_num=" + content_num;
 	}
 	
@@ -211,14 +204,9 @@ public class BoardController {
 //		
 //		return "redirect:/board/read";
 //	}
-	
+//	
 //	@RequestMapping(value="/comment/update",method=RequestMethod.GET)
 //	public String update(Integer content_num,Integer comment_num,Model model) throws Exception {
-//			String strSeq = req.getParameter("to_seq");
-//			Long to_seq = Long.valueOf(strSeq);
-//			todoVO.setTo_seq(to_seq);
-//			tlservice.update(todoVO);
-//			resp.sendRedirect("/todo/");
 //		CommentVO commentVO = commentService.findByIdComment_num(comment_num);
 //		log.debug("댓글번호{}",comment_num);
 //		model.addAttribute("COMMENT",commentVO);
