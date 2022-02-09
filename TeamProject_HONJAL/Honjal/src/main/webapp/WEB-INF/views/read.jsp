@@ -134,10 +134,6 @@ comment_delete.addEventListener("click",(e)=>{
 document.querySelector(".insert").addEventListener("click",(e)=>{
 	location.href = rootPath + "/board/read?content_num=${CONTENT.content_num}"
 	alert("댓글이 등록되었습니다")
-	if(member_null === ""){
-		alert("로그인 해주세요")
-		location.href = "${rootPath}"
-	}
 	let comment_text = document.querySelector("textarea[name='comment_text']").value
 	let json = { comment_text }
 	let jsonString = JSON.stringify(json)

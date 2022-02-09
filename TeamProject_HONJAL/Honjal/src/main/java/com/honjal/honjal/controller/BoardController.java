@@ -170,20 +170,17 @@ public class BoardController {
 		ContentVO contentVO = contentService.findByIdContent(content_num);
 		model.addAttribute("CONTENT",contentVO);
 		model.addAttribute("BODY","READ");
+		
 		List<CommentVO> commentList = commentService.selectAll();
 		commentVO.setComment_num(commentVO.getComment_num());
-		log.debug("댓글리스트{}",commentList.toArray());
 		model.addAttribute("COMMENT",commentList);
 		model.addAttribute("BODY","READ");
-		
-		
 		
 		return "home";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/read",method=RequestMethod.POST)
-	public String comment(Integer comment_num, Integer content_num,CommentVO commentVO,HttpSession session) throws Exception {
+	public String comment(Integer content_num,CommentVO commentVO,HttpSession session) throws Exception {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat st = new SimpleDateFormat("HH:mm:ss");
 		String curTime = st.format(date);
@@ -191,10 +188,9 @@ public class BoardController {
 		
 		MemberVO memberVO = (MemberVO) session.getAttribute("MEMBER");
 		commentVO.setComment_writer(memberVO.getMember_nname());
-		
-		log.debug("커멘트 {}", commentVO.toString());
+
 		commentService.insert(commentVO);
-		log.debug("commentVO{}",commentVO.toString());
+		
 		return "redirect:/board/read?content_num=" + content_num;
 	}
 	
