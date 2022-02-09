@@ -66,5 +66,6 @@ public class MemberServiceImplV1 implements MemberService{
 		model.addAttribute("LOGIN_FAIL","NOT_PASS");
 		return null;
 	}
+		
 
 }

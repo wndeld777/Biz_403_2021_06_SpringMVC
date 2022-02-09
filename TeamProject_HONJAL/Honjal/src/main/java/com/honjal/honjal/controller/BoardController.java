@@ -179,6 +179,10 @@ public class BoardController {
 		return "home";
 	}
 	
+<<<<<<< HEAD
+=======
+	//@ResponseBody
+>>>>>>> 95fff60b1570ed7a2916d8339050c4655dfe5c96
 	@RequestMapping(value="/read",method=RequestMethod.POST)
 	public String comment(Integer content_num,CommentVO commentVO,HttpSession session) throws Exception {
 		Date date = new Date(System.currentTimeMillis());
